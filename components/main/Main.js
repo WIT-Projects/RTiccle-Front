@@ -2,14 +2,14 @@ import React from 'react';
 import { View, StyleSheet,  Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import MainListItem from './MainListItem';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const tabBarHeight = windowHeight * 0.067;
-const imgContainerHeight = windowHeight * 0.2;
+const imgContainerHeight = windowHeight * 0.25;
 const ContainerWidth = windowWidth * 0.882;
 
 export default function Main() {
@@ -39,8 +39,8 @@ export default function Main() {
             <Text style={styles.filterTextSelect}>날짜순</Text>
           </View>
           <View style={styles.filterIconContainer}>
-            <MaterialIcons name="filter-alt" size={24} color="#000000" style={styles.filterIcon}/>
-            <Ionicons name="image-outline" size={24} color="#000000" style={styles.filterIcon}/>
+            <AntDesign name="filter" size={24} color="#000000" style={styles.filterIcon}/>
+            <Ionicons name="image" size={24} color="#000000" style={styles.filterIcon}/>
           </View>
         </View>
         </View>
@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
     paddingRight : 18,
   },
   mainContainer :{
-    // width : ContainerWidth,
     flex: 1,
     alignItems: 'center',
     paddingBottom: 16,
