@@ -18,7 +18,7 @@ const MainListItem = () => {
         </View>
     );
 }
- 
+
 const styles = StyleSheet.create({
     image: {
         width: 140,

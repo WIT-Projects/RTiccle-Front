@@ -1,8 +1,5 @@
 import React from 'react';
 import { View, StyleSheet,  Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import MainListItem from './MainListItem';
 
 const windowWidth = Dimensions.get('window').width;
@@ -21,9 +18,11 @@ export default function Main() {
       <ScrollView>
       {/* Navigator */}
       <View style={styles.titleBar}>
-        <Ionicons name="menu" size={30} color="#ffffff" style={styles.iconLeft}/>
-        <Text style={styles.titleText}>R-Ticcle</Text>
-        <SimpleLineIcons name= "magnifier" size={22} color="#ffffff" style={styles.iconRight}/>
+        <View style={styles.titleBarContainer}>
+          <Image source={require('../../assets/images/icon/icon_menu.png')} style={styles.iconLeft}/> 
+          <Text style={styles.titleText}>R-Ticcle</Text>
+          <Image source={require('../../assets/images/icon/icon_magnifier.png')} style={styles.iconRight}/> 
+        </View>
       </View>
 
       {/* Main Container */}
@@ -39,8 +38,8 @@ export default function Main() {
             <Text style={styles.filterTextSelect}>날짜순</Text>
           </View>
           <View style={styles.filterIconContainer}>
-            <AntDesign name="filter" size={24} color="#000000" style={styles.filterIcon}/>
-            <Ionicons name="image" size={24} color="#000000" style={styles.filterIcon}/>
+            <Image source={require('../../assets/images/icon/icon_filter.png')} style={styles.filterIcon}/> 
+            <Image source={require('../../assets/images/icon/icon_menu_dec.png')} style={styles.filterIcon}/> 
           </View>
         </View>
         </View>
@@ -74,6 +73,7 @@ export default function Main() {
       <TouchableOpacity activeOpacity={0.5} onPress={clickedFunction} style={styles.touchableOpacityStyle} >
         <Image source={require('../../assets/images/writeFAB.png')}  style={styles.floatingButtonStyle} />
       </TouchableOpacity>
+
     </View>
   )
 }
@@ -86,12 +86,17 @@ const styles = StyleSheet.create({
     // alignItems : 'center'
   },
   titleBar:{
+    backgroundColor : '#00CE9D',
+    height : tabBarHeight,
+    width : '100%',
+    alignItems : 'center'
+  },
+  titleBarContainer:{
+    width : ContainerWidth,
+    height : tabBarHeight,
     flexDirection : 'row',
     alignItems :'center',
     justifyContent : 'space-between',
-    backgroundColor : '#00CE9D',
-    height : tabBarHeight,
-    width : '100%'
   },
   titleText:{
     color: '#ffffff',
@@ -101,10 +106,12 @@ const styles = StyleSheet.create({
     lineHeight : 30,
   },
   iconLeft:{
-    paddingLeft : 14,
+    width : 20,
+    height : 18,
   },
   iconRight:{
-    paddingRight : 18,
+    width : 20,
+    height : 20,
   },
   mainContainer :{
     flex: 1,
@@ -159,8 +166,11 @@ const styles = StyleSheet.create({
     flex : 3,
     flexDirection : 'row',
     justifyContent : 'flex-end',
+    alignItems : 'center'
   },
   filterIcon:{
+    width: 16,
+    height : 18,
     marginLeft : 12,
   },
   // List css
