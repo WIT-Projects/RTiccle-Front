@@ -5,6 +5,7 @@ import MainListItem from './MainListItem';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+// 비율로 설정? 아직 모름
 const tabBarHeight = windowHeight * 0.067;
 const imgContainerHeight = windowHeight * 0.25;
 const ContainerWidth = windowWidth * 0.882;
@@ -19,9 +20,9 @@ export default function Main() {
       {/* Navigator */}
       <View style={styles.titleBar}>
         <View style={styles.titleBarContainer}>
-          <Image source={require('../../assets/images/icon/icon_menu.png')} style={styles.iconLeft}/> 
+          <Image source={require('../../../assets/images/icon/icon_menu.png')} style={styles.iconLeft}/> 
           <Text style={styles.titleText}>R-Ticcle</Text>
-          <Image source={require('../../assets/images/icon/icon_magnifier.png')} style={styles.iconRight}/> 
+          <Image source={require('../../../assets/images/icon/icon_magnifier.png')} style={styles.iconRight}/> 
         </View>
       </View>
 
@@ -38,8 +39,8 @@ export default function Main() {
             <Text style={styles.filterTextSelect}>날짜순</Text>
           </View>
           <View style={styles.filterIconContainer}>
-            <Image source={require('../../assets/images/icon/icon_filter.png')} style={styles.filterIcon}/> 
-            <Image source={require('../../assets/images/icon/icon_menu_dec.png')} style={styles.filterIcon}/> 
+            <Image source={require('../../../assets/images/icon/icon_filter.png')} style={styles.filterIcon}/> 
+            <Image source={require('../../../assets/images/icon/icon_menu_dec.png')} style={styles.filterIcon}/> 
           </View>
         </View>
         </View>
@@ -71,7 +72,7 @@ export default function Main() {
 
       {/* Floating Button */}
       <TouchableOpacity activeOpacity={0.5} onPress={clickedFunction} style={styles.touchableOpacityStyle} >
-        <Image source={require('../../assets/images/writeFAB.png')}  style={styles.floatingButtonStyle} />
+        <Image source={require('../../../assets/images/writeFAB.png')}  style={styles.floatingButtonStyle} />
       </TouchableOpacity>
 
     </View>
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     // alignItems : 'center'
   },
   titleBar:{
-    backgroundColor : '#00CE9D',
+    backgroundColor : '#6BDCC2',
     height : tabBarHeight,
     width : '100%',
     alignItems : 'center'
@@ -154,9 +155,9 @@ const styles = StyleSheet.create({
     paddingBottom : 6,
     alignItems : 'center',
     justifyContent : 'center',
-    backgroundColor : '#00CE9D',
+    backgroundColor : '#6BDCC2',
     borderWidth : 1,
-    borderColor : '#00CE9D',
+    borderColor : '#6BDCC2',
     borderRadius: 20,
   },
   filterTextSelect:{
