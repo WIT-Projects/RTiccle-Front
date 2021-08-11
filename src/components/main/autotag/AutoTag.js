@@ -23,6 +23,7 @@ export default function AutoTag() {
     let addWidth = tag.filter(tag => tag.id === id)[0].length * 6 + 19
     setInputWidth(inputWidth + addWidth)
     setTag(tag.filter(tag => tag.id !== id))
+    nextId.current -= 1
   }
 
 
@@ -44,7 +45,7 @@ export default function AutoTag() {
       onChangeText("");
       nextId.current += 1;
     }
-  }, [text])
+  }, [text, inputWidth])
 
 
 
