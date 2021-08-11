@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet,  Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native'
 
 import MainListItem from './MainListItem';
 import Mountain from './Mountain/Mountain';
@@ -18,6 +19,7 @@ const ContainerWidth = 350;
 
 export default function Main() {
 
+  const navigation = useNavigation();
   const clickedFunction = () => {
     Alert.alert("Floating Button Clicked");
   }
@@ -30,8 +32,11 @@ export default function Main() {
       {/* Navigator */}
       <View style={styles.titleBar}>
         <View style={styles.titleBarContainer}>
-          <Image source={require('../../../assets/images/icon/icon_menu.png')} style={styles.iconLeft}/> 
-          <Text style={styles.titleText}>R-Ticcle</Text>
+          <Image source={require('../../../assets/images/icon/icon_menu.png')} style={styles.iconLeft}/>
+          {/* 상단 R-Ticcle 누르면 로그인페이지로 (로그인페이지 버튼 생기면 삭제 예정)*/}
+          <View  onTouchEnd={()=> {navigation.navigate('SignUp')}}>
+            <Text style={styles.titleText}>R-Ticcle</Text>
+          </View>
           <Image source={require('../../../assets/images/icon/icon_magnifier.png')} style={styles.iconRight}/> 
         </View>
       </View>
@@ -99,13 +104,22 @@ const styles = StyleSheet.create({
   container:{
     backgroundColor : '#ffffff',
     width : windowWidth,
-    // alignItems : 'center'
   },
   titleBar:{
-    backgroundColor : '#6BDCC2',
+    backgroundColor : '#ffffff',
     height : tabBarHeight,
     width : '100%',
-    alignItems : 'center'
+    alignItems : 'center',
+    marginTop: 4,
+
+    //bottom-Shadow
+    shadowColor: "#000000",
+    shadowOffset: {
+	width: 0,
+	height: 1,
+    },
+  shadowOpacity: 0.2,
+  elevation: 4,
   },
   titleBarContainer:{
     width : ContainerWidth,
@@ -115,17 +129,19 @@ const styles = StyleSheet.create({
     justifyContent : 'space-between',
   },
   titleText:{
-    color: '#ffffff',
-    fontSize : 22,
+    color: '#6BDCC2',
+    fontSize : 23,
     fontFamily : 'NotoSansKR-Bold',
     alignItems : 'center',
     lineHeight : 30,
   },
   iconLeft:{
+    marginTop: 2,
     width : 20,
     height : 18,
   },
   iconRight:{
+    marginTop: 1,
     width : 20,
     height : 20,
   },
@@ -230,11 +246,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     right: 30,
-    bottom: 45,
+    bottom: 25,
   },
   floatingButtonStyle: {
     resizeMode: 'contain',
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
   },
 })

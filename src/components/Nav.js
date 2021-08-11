@@ -2,9 +2,11 @@ import React, { useState, useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import SignUp from './login/SignUp';
 import Main from './main/Main';
 import Splash from './splash/Splash';
 import useUser from '../data/hook/useUserData';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +43,7 @@ export default function Nav() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="SignUp" component={SignUp}/>
         <Stack.Screen name="Main" component={Main}/>
       </Stack.Navigator>
     </NavigationContainer>
