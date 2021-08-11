@@ -5,6 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignUp from './login/SignUp';
 import Main from './main/Main';
 import Splash from './splash/Splash';
+import AutoTag from './main/autotag/AutoTag';
+
 import useUser from '../data/hook/useUserData';
 
 
@@ -45,6 +47,7 @@ export default function Nav() {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="SignUp" component={SignUp}/>
         <Stack.Screen name="Main" component={Main}/>
+        <Stack.Screen name="AutoTag" component={AutoTag}/>
       </Stack.Navigator>
     </NavigationContainer>
 );

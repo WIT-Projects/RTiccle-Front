@@ -37,7 +37,8 @@ export default function Main() {
           <View  onTouchEnd={()=> {navigation.navigate('SignUp')}}>
             <Text style={styles.titleText}>R-Ticcle</Text>
           </View>
-          <Image source={require('../../../assets/images/icon/icon_magnifier.png')} style={styles.iconRight}/> 
+          <Image source={require('../../../assets/images/icon/icon_magnifier.png')} style={styles.iconRight}
+          onTouchEnd={()=> {navigation.navigate('AutoTag')}}/> 
         </View>
       </View>
 
