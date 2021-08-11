@@ -1,19 +1,29 @@
 import React from 'react';
 import { View, StyleSheet,  Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert } from 'react-native';
+
 import MainListItem from './MainListItem';
+import Mountain from './Mountain/Mountain';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 // 비율로 설정? 아직 모름
-const tabBarHeight = windowHeight * 0.067;
-const imgContainerHeight = windowHeight * 0.25;
-const ContainerWidth = windowWidth * 0.882;
+// const tabBarHeight = windowHeight * 0.067;
+// const imgContainerHeight = windowHeight * 0.25;
+// const ContainerWidth = windowWidth * 0.882;
+
+const tabBarHeight = 51;
+const imgContainerHeight = 220;
+const ContainerWidth = 350;
 
 export default function Main() {
+
   const clickedFunction = () => {
     Alert.alert("Floating Button Clicked");
   }
+
+  const label = ["신문/기사", "만화", "SNS", "블로그", "책", "웹연재물","기타"]
+
   return(
     <View style={styles.container}>
       <ScrollView>
@@ -29,7 +39,12 @@ export default function Main() {
       {/* Main Container */}
       <View style={styles.mainContainer}>
         <View style={styles.imgContainer}>
-          <View style={styles.mainImg}></View>
+          <View style={styles.mainImg}>
+            <Mountain/>
+          </View>
+          <View style={styles.labelContainer}>
+              {label.map((label) => {return (<Text key={label} style={styles.labelText}>{label}</Text>)})}
+            </View>
         </View>
         <View style={styles.filterMenu}>
           <View style={styles.filterTextContainerNoSelect}>
@@ -123,16 +138,27 @@ const styles = StyleSheet.create({
     height : imgContainerHeight,
     width : ContainerWidth,
     marginTop: 30,
+    alignItems : 'center'
   },
   mainImg:{
-    height : '100%',
     width : '100%',
-    backgroundColor : '#C4C4C4',
+    // backgroundColor : '#C4C4C4',
   },
+  labelContainer:{
+  width: '90%',
+  flexDirection:'row',
+  justifyContent:'space-between',
+  },
+  labelText:{
+    fontFamily:'NotoSansKR-Bold',
+    fontSize: 12,
+  },
+
+  //MainContainer Style
   filterMenu:{
     flexDirection : 'row',
     width : ContainerWidth,
-    marginTop: 30,
+    marginTop: 14,
   },
   filterTextContainerNoSelect:{
     flex : 2,

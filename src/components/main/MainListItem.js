@@ -4,6 +4,8 @@ import { StyleSheet } from 'react-native';
 import useUser from '../../data/hook/useUserData';
 
 const MainListItem = () => {
+    
+    // 받아온 데이터 사용 예시
     const {user} = useUser();
 
     return (
