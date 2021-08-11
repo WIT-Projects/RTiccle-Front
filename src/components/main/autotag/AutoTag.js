@@ -20,7 +20,7 @@ export default function AutoTag() {
   const [inputWidth,setInputWidth] = useState(355);
 
   const onRemove = id => {
-    let addWidth = tag.filter(tag => tag.id === id)[0].length * 9 + 4
+    let addWidth = tag.filter(tag => tag.id === id)[0].length * 8 +5
     setInputWidth(inputWidth + addWidth)
     setTag(tag.filter(tag => tag.id !== id))
   }
@@ -40,7 +40,7 @@ export default function AutoTag() {
         length : text.length
       }
       setTag([...tag, newTag]);
-      setInputWidth(inputWidth - (newTag.length * 9 + 4))// tag 크기 만큼 input 박스 크기 줄이기 -> flex end로 설정해놨기 때문에 오른쪽으로 기준으로 길이 짧아짐
+      setInputWidth(inputWidth - (newTag.length * 8 + 5))// tag 크기 만큼 input 박스 크기 줄이기 -> flex end로 설정해놨기 때문에 오른쪽으로 기준으로 길이 짧아짐
       onChangeText("");
       nextId.current += 1;
     }
@@ -68,7 +68,7 @@ export default function AutoTag() {
         return(
           <View style={styles.userTagContainer}>
             <TouchableOpacity style={styles.userTagTouch} onPress={() => onRemove(tag.id)}>
-              <Text key={tag.id} style={styles.userTag}>{tag.tagName} {tag.length}</Text>
+              <Text key={tag.id} style={styles.userTag}>{tag.tagName}</Text>
               <Image source={require('../../../../assets/images/icon/icon_x.png')} style={{width:9, height : 9}}/>
             </TouchableOpacity>
           </View>
