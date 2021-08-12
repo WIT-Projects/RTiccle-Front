@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert, Button } from "react-native";
+import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert, Button, FlatList } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import AutoTag from './autotag/AutoTag';
+import SubTiccleList from './SubTiccleList';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -17,26 +18,40 @@ export default function MainTiccle() {
     const [title, onChangeTitle] = useState("");
     const [link, onChangeLink] = useState("");
 
-    const [buttons, setButtons] = useState([
-        {id: "책", isPress: false},
-        {id: "블로그", isPress: false},
-        {id: "뉴스기사", isPress: false},
-        {id: "웹 연재물", isPress: false},
-        {id: "SNS", isPress: false},
-        {id: "기타", isPress: false},
-    ])
-
     const [button1, setButton1] = useState(false);
     const [button2, setButton2] = useState(false);
     const [button3, setButton3] = useState(false);
     const [button4, setButton4] = useState(false);
     const [button5, setButton5] = useState(false);
     const [button6, setButton6] = useState(false);
-    
+
+    const data = [
+        {
+            id: 1,
+            date: "2021.06.07",
+            title: "UIUX 디자인이란 무엇일까?",
+            imgUrl: "https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/CyKAu5r6yUDSnRAy28UDlDEpCDs.png",
+            content: "휴대폰, 컴퓨터, 내비게이션 등 디지털 기기를 작동시키는 명령어나 기법을 포함하는 사용자 환경을 뜻한다. 이용자들이 IT기기를 구동하기 위해서 접촉하는 매개체로 컴퓨터asdfasdfasfd"
+        },
+        {
+            id: 2,
+            date: "2021.06.07",
+            title: "UIUX 디자인이란 무엇일까?",
+            imgUrl: "https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/CyKAu5r6yUDSnRAy28UDlDEpCDs.png",
+            content: "휴대폰, 컴퓨터, 내비게이션 등 디지털 기기를 작동시키는 명령어나 기법을 포함하는 사용자 환경을 뜻한다. 이용자들이 IT기기를 구동하기 위해서 접촉하는 매개체로 컴퓨터asdfasdfasfd"
+        },
+        {
+            id: 3,
+            date: "2021.06.07",
+            title: "UIUX 디자인이란 무엇일까?",
+            imgUrl: "https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/CyKAu5r6yUDSnRAy28UDlDEpCDs.png",
+            content: "휴대폰, 컴퓨터, 내비게이션 등 디지털 기기를 작동시키는 명령어나 기법을 포함하는 사용자 환경을 뜻한다. 이용자들이 IT기기를 구동하기 위해서 접촉하는 매개체로 컴퓨터asdfasdfasfd"
+        },
+    ]
 
     useEffect(() => {
 
-    },[]);
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -58,12 +73,12 @@ export default function MainTiccle() {
                     {label.map((label) => { return (<Text key={label} style={styles.labelText} onPress={onChangeButton(label)}>{label}</Text>) })}
                 </View> */}
                 <View style={styles.labelContainer}>
-                    <Text style={button1 ? styles.labelTextIsPress: styles.labelText} onTouchEnd={() =>{setButton1(!button1)}}>{label[0]}</Text>
-                    <Text style={button2 ? styles.labelTextIsPress: styles.labelText} onTouchEnd={() =>{setButton2(!button2)}}>{label[1]}</Text>
-                    <Text style={button3 ? styles.labelTextIsPress: styles.labelText} onTouchEnd={() =>{setButton3(!button3)}}>{label[2]}</Text>
-                    <Text style={button4 ? styles.labelTextIsPress: styles.labelText} onTouchEnd={() =>{setButton4(!button4)}}>{label[3]}</Text>
-                    <Text style={button5 ? styles.labelTextIsPress: styles.labelText} onTouchEnd={() =>{setButton5(!button5)}}>{label[4]}</Text>
-                    <Text style={button6 ? styles.labelTextIsPress: styles.labelText} onTouchEnd={() =>{setButton6(!button6)}}>{label[5]}</Text>
+                    <Text style={button1 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton1(!button1) }}>{label[0]}</Text>
+                    <Text style={button2 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton2(!button2) }}>{label[1]}</Text>
+                    <Text style={button3 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton3(!button3) }}>{label[2]}</Text>
+                    <Text style={button4 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton4(!button4) }}>{label[3]}</Text>
+                    <Text style={button5 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton5(!button5) }}>{label[4]}</Text>
+                    <Text style={button6 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton6(!button6) }}>{label[5]}</Text>
                 </View>
 
                 {/* TextInput */}
@@ -74,6 +89,11 @@ export default function MainTiccle() {
                 {/* button */}
                 <View style={styles.addButton}>
                     <Text style={styles.addButtonText} onTouchEnd={() => { navigation.navigate('SubTiccle') }}>내용 추가 +</Text>
+                </View>
+
+                {/* SubTiccle list */}
+                <View>
+                    {data.map((item) => { return (<SubTiccleList key={item.id} date={item.date} title={item.title} imgUrl={item.imgUrl} content={item.content}/>) })}
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -179,4 +199,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
+    listFlag: {
+
+    }
 });
