@@ -17,6 +17,27 @@ export default function MainTiccle() {
     const [title, onChangeTitle] = useState("");
     const [link, onChangeLink] = useState("");
 
+    const [buttons, setButtons] = useState([
+        {id: "책", isPress: false},
+        {id: "블로그", isPress: false},
+        {id: "뉴스기사", isPress: false},
+        {id: "웹 연재물", isPress: false},
+        {id: "SNS", isPress: false},
+        {id: "기타", isPress: false},
+    ])
+
+    const [button1, setButton1] = useState(false);
+    const [button2, setButton2] = useState(false);
+    const [button3, setButton3] = useState(false);
+    const [button4, setButton4] = useState(false);
+    const [button5, setButton5] = useState(false);
+    const [button6, setButton6] = useState(false);
+    
+
+    useEffect(() => {
+
+    },[]);
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
@@ -33,14 +54,23 @@ export default function MainTiccle() {
                     </View>
                 </View>
                 {/* label */}
+                {/* <View style={styles.labelContainer}>
+                    {label.map((label) => { return (<Text key={label} style={styles.labelText} onPress={onChangeButton(label)}>{label}</Text>) })}
+                </View> */}
                 <View style={styles.labelContainer}>
-                    {label.map((label) => { return (<Text key={label} style={styles.labelText} >{label}</Text>) })}
+                    <Text style={button1 ? styles.labelTextIsPress: styles.labelText} onTouchEnd={() =>{setButton1(!button1)}}>{label[0]}</Text>
+                    <Text style={button2 ? styles.labelTextIsPress: styles.labelText} onTouchEnd={() =>{setButton2(!button2)}}>{label[1]}</Text>
+                    <Text style={button3 ? styles.labelTextIsPress: styles.labelText} onTouchEnd={() =>{setButton3(!button3)}}>{label[2]}</Text>
+                    <Text style={button4 ? styles.labelTextIsPress: styles.labelText} onTouchEnd={() =>{setButton4(!button4)}}>{label[3]}</Text>
+                    <Text style={button5 ? styles.labelTextIsPress: styles.labelText} onTouchEnd={() =>{setButton5(!button5)}}>{label[4]}</Text>
+                    <Text style={button6 ? styles.labelTextIsPress: styles.labelText} onTouchEnd={() =>{setButton6(!button6)}}>{label[5]}</Text>
                 </View>
 
                 {/* TextInput */}
                 <TextInput style={styles.textInput} onChangeText={onChangeTitle} placeholder=" 제목" />
                 <TextInput style={styles.textInput} onChangeText={onChangeLink} placeholder=" 원본글 링크 or 파일(선택)" />
                 <AutoTag />
+
                 {/* button */}
                 <View style={styles.addButton}>
                     <Text style={styles.addButtonText} onTouchEnd={() => { navigation.navigate('SubTiccle') }}>내용 추가 +</Text>
