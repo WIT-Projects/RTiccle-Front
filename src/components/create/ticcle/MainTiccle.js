@@ -49,10 +49,6 @@ export default function MainTiccle() {
         },
     ]
 
-    useEffect(() => {
-
-    }, []);
-
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
@@ -69,9 +65,6 @@ export default function MainTiccle() {
                     </View>
                 </View>
                 {/* label */}
-                {/* <View style={styles.labelContainer}>
-                    {label.map((label) => { return (<Text key={label} style={styles.labelText} onPress={onChangeButton(label)}>{label}</Text>) })}
-                </View> */}
                 <View style={styles.labelContainer}>
                     <Text style={button1 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton1(!button1) }}>{label[0]}</Text>
                     <Text style={button2 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton2(!button2) }}>{label[1]}</Text>
