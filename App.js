@@ -1,11 +1,15 @@
 import React from 'react';
 
-import Main from './components/main/Main';
+
+import AppStateProvier from './src/data/provider/AppStateProvider';
+import Nav from './src/components/Nav';
 
 function App() {
   return (
     <>
-      <Main/>
+    <AppStateProvier>
+      <Nav/>
+    </AppStateProvier>
     </>
 
   );

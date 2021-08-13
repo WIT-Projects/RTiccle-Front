@@ -1,34 +1,55 @@
 import React from 'react';
 import { View, StyleSheet,  Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native'
+
 import MainListItem from './MainListItem';
+import Mountain from './Mountain/Mountain';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const tabBarHeight = windowHeight * 0.067;
-const imgContainerHeight = windowHeight * 0.25;
-const ContainerWidth = windowWidth * 0.882;
+// 비율로 설정? 아직 모름
+// const tabBarHeight = windowHeight * 0.067;
+// const imgContainerHeight = windowHeight * 0.25;
+// const ContainerWidth = windowWidth * 0.882;
+
+const tabBarHeight = 51;
+const imgContainerHeight = 220;
+const ContainerWidth = 350;
 
 export default function Main() {
+
+  const navigation = useNavigation();
   const clickedFunction = () => {
     Alert.alert("Floating Button Clicked");
   }
+
+  const label = ["신문/기사", "만화", "SNS", "블로그", "책", "웹연재물","기타"]
+
   return(
     <View style={styles.container}>
       <ScrollView>
       {/* Navigator */}
       <View style={styles.titleBar}>
         <View style={styles.titleBarContainer}>
-          <Image source={require('../../assets/images/icon/icon_menu.png')} style={styles.iconLeft}/> 
-          <Text style={styles.titleText}>R-Ticcle</Text>
-          <Image source={require('../../assets/images/icon/icon_magnifier.png')} style={styles.iconRight}/> 
+          <Image source={require('../../../assets/images/icon/icon_menu.png')} style={styles.iconLeft}/>
+          {/* 상단 R-Ticcle 누르면 로그인페이지로 (로그인페이지 버튼 생기면 삭제 예정)*/}
+          <View  onTouchEnd={()=> {navigation.navigate('SignUp')}}>
+            <Text style={styles.titleText}>R-Ticcle</Text>
+          </View>
+          <Image source={require('../../../assets/images/icon/icon_magnifier.png')} style={styles.iconRight}/> 
         </View>
       </View>
 
       {/* Main Container */}
       <View style={styles.mainContainer}>
         <View style={styles.imgContainer}>
-          <View style={styles.mainImg}></View>
+          <View style={styles.mainImg}>
+            <Mountain/>
+          </View>
+          <View style={styles.labelContainer}>
+              {label.map((label) => {return (<Text key={label} style={styles.labelText}>{label}</Text>)})}
+            </View>
         </View>
         <View style={styles.filterMenu}>
           <View style={styles.filterTextContainerNoSelect}>
@@ -38,8 +59,8 @@ export default function Main() {
             <Text style={styles.filterTextSelect}>날짜순</Text>
           </View>
           <View style={styles.filterIconContainer}>
-            <Image source={require('../../assets/images/icon/icon_filter.png')} style={styles.filterIcon}/> 
-            <Image source={require('../../assets/images/icon/icon_menu_dec.png')} style={styles.filterIcon}/> 
+            <Image source={require('../../../assets/images/icon/icon_filter.png')} style={styles.filterIcon}/> 
+            <Image source={require('../../../assets/images/icon/icon_menu_dec.png')} style={styles.filterIcon}/> 
           </View>
         </View>
         </View>
@@ -71,7 +92,7 @@ export default function Main() {
 
       {/* Floating Button */}
       <TouchableOpacity activeOpacity={0.5} onPress={clickedFunction} style={styles.touchableOpacityStyle} >
-        <Image source={require('../../assets/images/writeFAB.png')}  style={styles.floatingButtonStyle} />
+        <Image source={require('../../../assets/images/writeFAB.png')}  style={styles.floatingButtonStyle} />
       </TouchableOpacity>
 
     </View>
@@ -83,13 +104,22 @@ const styles = StyleSheet.create({
   container:{
     backgroundColor : '#ffffff',
     width : windowWidth,
-    // alignItems : 'center'
   },
   titleBar:{
-    backgroundColor : '#00CE9D',
+    backgroundColor : '#ffffff',
     height : tabBarHeight,
     width : '100%',
-    alignItems : 'center'
+    alignItems : 'center',
+    marginTop: 4,
+
+    //bottom-Shadow
+    shadowColor: "#000000",
+    shadowOffset: {
+	width: 0,
+	height: 1,
+    },
+  shadowOpacity: 0.2,
+  elevation: 4,
   },
   titleBarContainer:{
     width : ContainerWidth,
@@ -99,17 +129,19 @@ const styles = StyleSheet.create({
     justifyContent : 'space-between',
   },
   titleText:{
-    color: '#ffffff',
-    fontSize : 22,
+    color: '#6BDCC2',
+    fontSize : 23,
     fontFamily : 'NotoSansKR-Bold',
     alignItems : 'center',
     lineHeight : 30,
   },
   iconLeft:{
+    marginTop: 2,
     width : 20,
     height : 18,
   },
   iconRight:{
+    marginTop: 1,
     width : 20,
     height : 20,
   },
@@ -122,16 +154,27 @@ const styles = StyleSheet.create({
     height : imgContainerHeight,
     width : ContainerWidth,
     marginTop: 30,
+    alignItems : 'center'
   },
   mainImg:{
-    height : '100%',
     width : '100%',
-    backgroundColor : '#C4C4C4',
+    // backgroundColor : '#C4C4C4',
   },
+  labelContainer:{
+  width: '90%',
+  flexDirection:'row',
+  justifyContent:'space-between',
+  },
+  labelText:{
+    fontFamily:'NotoSansKR-Bold',
+    fontSize: 12,
+  },
+
+  //MainContainer Style
   filterMenu:{
     flexDirection : 'row',
     width : ContainerWidth,
-    marginTop: 30,
+    marginTop: 14,
   },
   filterTextContainerNoSelect:{
     flex : 2,
@@ -154,9 +197,9 @@ const styles = StyleSheet.create({
     paddingBottom : 6,
     alignItems : 'center',
     justifyContent : 'center',
-    backgroundColor : '#00CE9D',
+    backgroundColor : '#6BDCC2',
     borderWidth : 1,
-    borderColor : '#00CE9D',
+    borderColor : '#6BDCC2',
     borderRadius: 20,
   },
   filterTextSelect:{
@@ -203,11 +246,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     right: 30,
-    bottom: 45,
+    bottom: 25,
   },
   floatingButtonStyle: {
     resizeMode: 'contain',
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
   },
 })
+
