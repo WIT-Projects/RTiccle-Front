@@ -15,6 +15,19 @@ export default function SubTiccle() {
     const [title, onChangeTitle] = useState("");
     const [link, onChangeLink] = useState("");
     const [content, onChangeContent] = useState("");
+    const [visible, setVisible] = useState(false);
+
+    const showDialog = () => {
+        setVisible(true);
+    };
+
+    const handleCancel = () => {
+        setVisible(false);
+    };
+
+    const handleDelete = () => {
+        setVisible(false);
+    };
 
     return (
         <SafeAreaView style={styles.container}>

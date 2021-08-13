@@ -66,12 +66,12 @@ export default function MainTiccle() {
                 </View>
                 {/* label */}
                 <View style={styles.labelContainer}>
-                    <Text style={button1 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton1(!button1) }}>{label[0]}</Text>
-                    <Text style={button2 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton2(!button2) }}>{label[1]}</Text>
-                    <Text style={button3 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton3(!button3) }}>{label[2]}</Text>
-                    <Text style={button4 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton4(!button4) }}>{label[3]}</Text>
-                    <Text style={button5 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton5(!button5) }}>{label[4]}</Text>
-                    <Text style={button6 ? styles.labelTextIsPress : styles.labelText} onTouchEnd={() => { setButton6(!button6) }}>{label[5]}</Text>
+                    <Text style={button1 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton1(!button1) }}>{label[0]}</Text>
+                    <Text style={button2 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton2(!button2) }}>{label[1]}</Text>
+                    <Text style={button3 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton3(!button3) }}>{label[2]}</Text>
+                    <Text style={button4 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton4(!button4) }}>{label[3]}</Text>
+                    <Text style={button5 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton5(!button5) }}>{label[4]}</Text>
+                    <Text style={button6 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton6(!button6) }}>{label[5]}</Text>
                 </View>
 
                 {/* TextInput */}
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
         lineHeight: 20,
         paddingLeft: 9,
     },
-    labelTextIsPress: {
+    pressedLabelText: {
         fontFamily: 'NotoSansKR-Bold',
         fontSize: 14,
         color: '#FFFFFF',
@@ -192,7 +192,4 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
-    listFlag: {
-
-    }
 });
