@@ -26,3 +26,4 @@ export default class Logo extends React.Component {
     );
   }
 }
+
