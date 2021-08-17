@@ -37,7 +37,8 @@ export default function Main() {
           <View  onTouchEnd={()=> {navigation.navigate('SignUp')}}>
             <Text style={styles.titleText}>R-Ticcle</Text>
           </View>
-          <Image source={require('../../../assets/images/icon/icon_magnifier.png')} style={styles.iconRight}/> 
+          <Image source={require('../../../assets/images/icon/icon_magnifier.png')} style={styles.iconRight}
+          onTouchEnd={()=> {}}/> 
         </View>
       </View>
 
@@ -91,7 +92,7 @@ export default function Main() {
       </ScrollView>
 
       {/* Floating Button */}
-      <TouchableOpacity activeOpacity={0.5} onPress={clickedFunction} style={styles.touchableOpacityStyle} >
+      <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate('MainTiccle')} style={styles.touchableOpacityStyle} >
         <Image source={require('../../../assets/images/writeFAB.png')}  style={styles.floatingButtonStyle} />
       </TouchableOpacity>
 

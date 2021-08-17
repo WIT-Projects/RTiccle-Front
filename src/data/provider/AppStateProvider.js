@@ -11,4 +11,4 @@ const AppStateProvier = ({children}) => {
   )
 }
 
-export default AppStateProvier
+export default AppStateProvier;
