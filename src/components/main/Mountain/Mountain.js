@@ -61,4 +61,3 @@ export default class Mountain extends React.PureComponent {
         )
     }
 }
-
