@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert, Button } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import Dialog from "react-native-dialog";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;

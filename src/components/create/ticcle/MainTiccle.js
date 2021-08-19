@@ -3,6 +3,7 @@ import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView
 import { useNavigation } from '@react-navigation/native';
 import AutoTag from './autotag/AutoTag';
 import SubTiccleList from './SubTiccleList';
+import ScrollTag from './ScrollTag';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#CECECE',
         borderBottomWidth: 1,
         fontSize: 16,
-        marginTop: 15,
+        marginTop: 10,
     },
     addButton: {
         alignItems: 'center',
