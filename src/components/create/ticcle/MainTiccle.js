@@ -19,12 +19,40 @@ export default function MainTiccle() {
     const [title, onChangeTitle] = useState("");
     const [link, onChangeLink] = useState("");
 
-    const [button1, setButton1] = useState(false);
-    const [button2, setButton2] = useState(false);
-    const [button3, setButton3] = useState(false);
-    const [button4, setButton4] = useState(false);
-    const [button5, setButton5] = useState(false);
-    const [button6, setButton6] = useState(false);
+    const [buttons, setButton] = useState([
+        {
+            id: 0,
+            active: false
+        },
+        {
+            id: 1,
+            active: false
+        },
+        {
+            id: 2,
+            active: false
+        },
+        {
+            id: 3,
+            active: false
+        },
+        {
+            id: 4,
+            active: false
+        },
+        {
+            id: 5,
+            active: false
+        },
+    ])
+
+    const onChange = id => {
+        setButton(
+            buttons.map(item =>
+              item.id === id ? { ...item, active: !item.active } : item
+            )
+        );
+    };
 
     const [datas, setDatas] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -62,12 +90,7 @@ export default function MainTiccle() {
                 </View>
                 {/* label */}
                 <View style={styles.labelContainer}>
-                    <Text style={button1 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton1(!button1) }}>{label[0]}</Text>
-                    <Text style={button2 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton2(!button2) }}>{label[1]}</Text>
-                    <Text style={button3 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton3(!button3) }}>{label[2]}</Text>
-                    <Text style={button4 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton4(!button4) }}>{label[3]}</Text>
-                    <Text style={button5 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton5(!button5) }}>{label[4]}</Text>
-                    <Text style={button6 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton6(!button6) }}>{label[5]}</Text>
+                    {label.map((item, index) => { return (<Text key={item} style={ buttons[index].active ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { onChange(index) }}>{item}</Text>) })}
                 </View>
 
                 {/* TextInput */}
