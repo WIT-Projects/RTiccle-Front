@@ -3,6 +3,7 @@ import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView
 import { useNavigation } from '@react-navigation/native';
 import AutoTag from './autotag/AutoTag';
 import SubTiccleList from './SubTiccleList';
+import Loading from '../../loading/loading';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -25,29 +26,24 @@ export default function MainTiccle() {
     const [button5, setButton5] = useState(false);
     const [button6, setButton6] = useState(false);
 
-    const data = [
-        {
-            id: 1,
-            date: "2021.06.07",
-            title: "UIUX 디자인이란 무엇일까?",
-            imgUrl: "https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/CyKAu5r6yUDSnRAy28UDlDEpCDs.png",
-            content: "휴대폰, 컴퓨터, 내비게이션 등 디지털 기기를 작동시키는 명령어나 기법을 포함하는 사용자 환경을 뜻한다. 이용자들이 IT기기를 구동하기 위해서 접촉하는 매개체로 컴퓨터asdfasdfasfd"
-        },
-        {
-            id: 2,
-            date: "2021.06.07",
-            title: "UIUX 디자인이란 무엇일까?",
-            imgUrl: "https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/CyKAu5r6yUDSnRAy28UDlDEpCDs.png",
-            content: "휴대폰, 컴퓨터, 내비게이션 등 디지털 기기를 작동시키는 명령어나 기법을 포함하는 사용자 환경을 뜻한다. 이용자들이 IT기기를 구동하기 위해서 접촉하는 매개체로 컴퓨터asdfasdfasfd"
-        },
-        {
-            id: 3,
-            date: "2021.06.07",
-            title: "UIUX 디자인이란 무엇일까?",
-            imgUrl: "https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/CyKAu5r6yUDSnRAy28UDlDEpCDs.png",
-            content: "휴대폰, 컴퓨터, 내비게이션 등 디지털 기기를 작동시키는 명령어나 기법을 포함하는 사용자 환경을 뜻한다. 이용자들이 IT기기를 구동하기 위해서 접촉하는 매개체로 컴퓨터asdfasdfasfd"
-        },
-    ]
+    const [datas, setDatas] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        getDatas();
+    }, []);
+
+    const getDatas = async () => {
+        try {
+            const response = await fetch('https://jsonplaceholder.typicode.com/posts/');
+            const json = await response.json();
+            setDatas(json);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setTimeout(() => { setLoading(false) }, 1000)
+        }
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -85,15 +81,20 @@ export default function MainTiccle() {
                 </View>
 
                 {/* SubTiccle list */}
+                {loading ? <Loading /> : <></>}
                 <View>
-                    {data.map((item) => { return (<SubTiccleList key={item.id} date={item.date} title={item.title} imgUrl={item.imgUrl} content={item.content}/>) })}
+                    {datas.map((item) => { return (<SubTiccleList key={item.id} date={"2021.08.19"} title={item.title} imgUrl={"https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/CyKAu5r6yUDSnRAy28UDlDEpCDs.png"} content={item.body} />) })}
                 </View>
             </ScrollView>
         </SafeAreaView>
     )
-}
+};
 
 const styles = StyleSheet.create({
+    container2: {
+        width: windowWidth,
+        alignItems: 'center',
+    },
     container: {
         backgroundColor: '#ffffff',
         width: windowWidth,
