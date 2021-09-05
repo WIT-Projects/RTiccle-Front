@@ -13,13 +13,13 @@ const windowHeight = Dimensions.get('window').height;
 // const imgContainerHeight = windowHeight * 0.25;
 // const ContainerWidth = windowWidth * 0.882;
 
-const tabBarHeight = 51;
+const tabBarHeight = 55;
 const imgContainerHeight = 220;
 const ContainerWidth = 350;
 
-export default function Main() {
+export default function Main({navigation}) {
 
-  const navigation = useNavigation();
+  const navigateTo = useNavigation();
   const clickedFunction = () => {
     Alert.alert("Floating Button Clicked");
   }
@@ -32,11 +32,15 @@ export default function Main() {
       {/* Navigator */}
       <View style={styles.titleBar}>
         <View style={styles.titleBarContainer}>
-          <Image source={require('../../../assets/images/icon/icon_menu.png')} style={styles.iconLeft}/>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <Image source={require('../../../assets/images/icon/icon_menu.png')} style={styles.iconLeft}/>
+          </TouchableOpacity>
+
           {/* 상단 R-Ticcle 누르면 로그인페이지로 (로그인페이지 버튼 생기면 삭제 예정)*/}
-          <View  onTouchEnd={()=> {navigation.navigate('SignUp')}}>
+          <View  onTouchEnd={()=> {navigateTo.navigate('SignUp')}}>
             <Text style={styles.titleText}>R-Ticcle</Text>
           </View>
+
           <Image source={require('../../../assets/images/icon/icon_magnifier.png')} style={styles.iconRight}
           onTouchEnd={()=> {}}/> 
         </View>
@@ -107,20 +111,21 @@ const styles = StyleSheet.create({
     width : windowWidth,
   },
   titleBar:{
+    
     backgroundColor : '#ffffff',
     height : tabBarHeight,
     width : '100%',
     alignItems : 'center',
-    marginTop: 4,
 
     //bottom-Shadow
+
     shadowColor: "#000000",
     shadowOffset: {
 	width: 0,
 	height: 1,
     },
   shadowOpacity: 0.2,
-  elevation: 4,
+  elevation: 6,
   },
   titleBarContainer:{
     width : ContainerWidth,

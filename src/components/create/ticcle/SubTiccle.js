@@ -9,7 +9,7 @@ const tabBarHeight = 51;
 const ContainerWidth = 350;
 
 export default function SubTiccle() {
-    const navigation = useNavigation();
+    const navigateTo = useNavigation();
 
     const [title, onChangeTitle] = useState("");
     const [link, onChangeLink] = useState("");
@@ -34,8 +34,8 @@ export default function SubTiccle() {
                 {/* Navigator */}
                 <View style={styles.titleBar}>
                     <View style={styles.titleBarContainer}>
-                        <Image onTouchEnd={() => { navigation.goBack() }} source={require('../../../../assets/images/icon/icon_back.png')} style={styles.iconLeft} />
-                        <View onTouchEnd={() => { navigation.navigate('Main') }}>
+                        <Image onTouchEnd={() => { navigateTo.goBack() }} source={require('../../../../assets/images/icon/icon_back.png')} style={styles.iconLeft} />
+                        <View onTouchEnd={() => { navigateTo.navigate('Main') }}>
                             <Text style={styles.titleText}>R-Ticcle</Text>
                         </View>
                         <View onTouchEnd={() => { }}>

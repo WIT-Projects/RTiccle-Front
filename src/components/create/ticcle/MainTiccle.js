@@ -13,7 +13,7 @@ const imgContainerHeight = 220;
 const ContainerWidth = 350;
 
 export default function MainTiccle() {
-    const navigation = useNavigation();
+    const navigateTo = useNavigation();
     const label = ["책", "블로그", "뉴스기사", "웹 연재물", "SNS", "기타"]
 
     const [title, onChangeTitle] = useState("");
@@ -56,8 +56,8 @@ export default function MainTiccle() {
                 {/* Navigator */}
                 <View style={styles.titleBar}>
                     <View style={styles.titleBarContainer}>
-                        <Image onTouchEnd={() => { navigation.goBack() }} source={require('../../../../assets/images/icon/icon_back.png')} style={styles.iconLeft} />
-                        <View onTouchEnd={() => { navigation.navigate('Main') }}>
+                        <Image onTouchEnd={() => { navigateTo.goBack() }} source={require('../../../../assets/images/icon/icon_back.png')} style={styles.iconLeft} />
+                        <View onTouchEnd={() => { navigateTo.navigate('Main') }}>
                             <Text style={styles.titleText}>R-Ticcle</Text>
                         </View>
                         <View onTouchEnd={() => { }}>
@@ -82,7 +82,7 @@ export default function MainTiccle() {
 
                 {/* button */}
                 <View style={styles.addButton}>
-                    <Text style={styles.addButtonText} onTouchEnd={() => { navigation.navigate('SubTiccle') }}>내용 추가 +</Text>
+                    <Text style={styles.addButtonText} onTouchEnd={() => { navigateTo.navigate('SubTiccle') }}>내용 추가 +</Text>
                 </View>
 
                 {/* SubTiccle list */}
