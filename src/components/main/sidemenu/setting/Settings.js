@@ -26,7 +26,7 @@ export default function Settings() {
           <View style={styles.forWidth}>
             <Image source={require('../../../../../assets/images/icon/settings/icon_lock.png')} style={styles.iconLock}/>
             <Text style={styles.listText}>잠금 설정</Text>
-            <Image source={require('../../../../../assets/images/icon/settings/icon_lock.png')} style={styles.iconRightArrow}/>
+            <Image source={require('../../../../../assets/images/icon/settings/icon_right_arrow_gray.png')} style={styles.iconRightArrow}/>
           </View>
         </TouchableOpacity>
 
@@ -34,7 +34,7 @@ export default function Settings() {
           <View style={styles.forWidth}>
             <Image source={require('../../../../../assets/images/icon/settings/icon_brush.png')} style={styles.iconBrush}/>
             <Text style={styles.listText}>테마 설정</Text>
-            <Image source={require('../../../../../assets/images/icon/settings/icon_brush.png')} style={styles.iconRightArrow}/>
+            <Image source={require('../../../../../assets/images/icon/settings/icon_right_arrow_gray.png')} style={styles.iconRightArrow}/>
           </View>
         </TouchableOpacity>
 
@@ -42,7 +42,7 @@ export default function Settings() {
           <View style={styles.forWidth}>
             <Image source={require('../../../../../assets/images/icon/settings/icon_refresh.png')} style={styles.iconRefresh}/>
             <Text style={styles.listText}>동기화</Text>
-            <Image source={require('../../../../../assets/images/icon/settings/icon_refresh.png')} style={styles.iconRightArrow}/>
+            <Image source={require('../../../../../assets/images/icon/settings/icon_right_arrow_gray.png')} style={styles.iconRightArrow}/>
           </View>
         </TouchableOpacity>
 
@@ -50,7 +50,7 @@ export default function Settings() {
           <View style={styles.forWidth}>
             <Image source={require('../../../../../assets/images/icon/settings/icon_CS.png')} style={styles.iconCS}/>
             <Text style={styles.listText}>고객센터</Text>
-            <Image source={require('../../../../../assets/images/icon/settings/icon_CS.png')} style={styles.iconRightArrow}/>
+            <Image source={require('../../../../../assets/images/icon/settings/icon_right_arrow_gray.png')} style={styles.iconRightArrow}/>
           </View>
         </TouchableOpacity>
 
@@ -58,7 +58,7 @@ export default function Settings() {
           <View style={styles.forWidth}>
             <Image source={require('../../../../../assets/images/icon/settings/icon_star.png')} style={styles.iconStar}/>
             <Text style={styles.listText}>앱 평가하기</Text>
-            <Image source={require('../../../../../assets/images/icon/settings/icon_star.png')} style={styles.iconRightArrow}/>
+            <Image source={require('../../../../../assets/images/icon/settings/icon_right_arrow_gray.png')} style={styles.iconRightArrow}/>
           </View>
         </TouchableOpacity>
       </View>
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     marginHorizontal : 2,
   },
   iconRightArrow : {
-    width : 10,
+    width : 11,
     height : 24,
     resizeMode : 'contain'
   }
