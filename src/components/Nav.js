@@ -5,11 +5,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignUp from './login/SignUp';
 import Main from './main/Main';
 import Splash from './splash/Splash';
-import AutoTag from './main/autotag/AutoTag';
 import MainTiccle from './create/ticcle/MainTiccle';
 import SubTiccle from './create/ticcle/SubTiccle';
 
+import Test from '../data/realm/test';
+
 import useUser from '../data/hook/useUserData';
+import { TestWatcher } from 'jest';
 
 
 const Stack = createNativeStackNavigator();
@@ -49,9 +51,9 @@ export default function Nav() {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="SignUp" component={SignUp}/>
         <Stack.Screen name="Main" component={Main}/>
-        <Stack.Screen name="AutoTag" component={AutoTag}/>
         <Stack.Screen name="MainTiccle" component={MainTiccle}/>
         <Stack.Screen name="SubTiccle" component={SubTiccle}/>
+        <Stack.Screen name="Test" component={Test}/>
       </Stack.Navigator>
     </NavigationContainer>
 );

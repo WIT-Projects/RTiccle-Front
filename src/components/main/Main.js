@@ -34,7 +34,7 @@ export default function Main() {
         <View style={styles.titleBarContainer}>
           <Image source={require('../../../assets/images/icon/icon_menu.png')} style={styles.iconLeft}/>
           {/* 상단 R-Ticcle 누르면 로그인페이지로 (로그인페이지 버튼 생기면 삭제 예정)*/}
-          <View  onTouchEnd={()=> {navigation.navigate('SignUp')}}>
+          <View  onTouchEnd={()=> {navigation.navigate('Test')}}>
             <Text style={styles.titleText}>R-Ticcle</Text>
           </View>
           <Image source={require('../../../assets/images/icon/icon_magnifier.png')} style={styles.iconRight}
