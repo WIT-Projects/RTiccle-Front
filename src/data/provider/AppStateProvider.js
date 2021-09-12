@@ -4,8 +4,10 @@ import AppStateContext from '../context/AppStateContext';
 const AppStateProvier = ({children}) => {
 
   const [user, setUser] = useState([]);
+  const [viewImageList, setViewImageList] = useState(true);
+
   return (
-    <AppStateContext.Provider value={{user, setUser}}>
+    <AppStateContext.Provider value={{user, setUser, viewImageList, setViewImageList}}>
       {children}
     </AppStateContext.Provider>
   )
