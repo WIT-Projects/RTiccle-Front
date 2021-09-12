@@ -12,6 +12,12 @@ export default function MainContainer() {
 
   const label = ["신문/기사", "만화", "SNS", "블로그", "책", "웹연재물","기타"]
   const {viewImageList, setViewImageList} = setMainView();
+  const filterIconUrls ={
+    imageURL: require('../../../assets/images/icon/icon_image.png'),
+    listURL : require('../../../assets/images/icon/icon_menu_dec.png')
+  }
+
+
   
   return(
     <View style={styles.mainContainer}>
@@ -42,7 +48,8 @@ export default function MainContainer() {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.filterIconTouchable} onPress={() => {setViewImageList(!viewImageList)}}>
-            <Image source={require('../../../assets/images/icon/icon_menu_dec.png')} style={styles.filterIcon}/>
+            { (viewImageList) && <Image source={filterIconUrls.listURL} style={styles.filterIcon}/>}
+            { !(viewImageList) && <Image source={filterIconUrls.imageURL} style={styles.filterIconImage}/>}
           </TouchableOpacity>
 
         </View>
@@ -120,8 +127,14 @@ const styles = StyleSheet.create({
     marginLeft : 12,
   },
   filterIcon:{
-    width: 18,
-    height : 18,
+    width: 21,
+    height : 21,
     resizeMode : 'contain'
   },
+  filterIconImage :{
+    width : 21,
+    height : 21,
+    resizeMode : 'contain',
+    marginTop : 2,
+  }
 })
