@@ -1,9 +1,9 @@
 import React from 'react';
 import {Text, View, Image} from 'react-native';
 import { StyleSheet } from 'react-native';
-import useUser from '../../data/hook/useUserData';
+import useUser from '../../../../../data/hook/useUserData';
 
-const MainListItem = () => {
+const MainImageItem = () => {
     
     // 받아온 데이터 사용 예시
     const {user} = useUser();
@@ -11,7 +11,7 @@ const MainListItem = () => {
     return (
         <View style={{marginBottom: 16}}>
             <Image style={styles.image}
-            source={{ uri: 'https://images.unsplash.com/photo-1581700251863-338f0b6a42b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80'}}></Image>
+            source={require('../../../../../../assets/images/example/book_picture_example_2.jpg')}></Image>
             <View style={styles.titleContainer}>
                 {<Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">{user[0].title}</Text>}
             </View>
@@ -26,9 +26,10 @@ const MainListItem = () => {
 
 const styles = StyleSheet.create({
     image: {
-        width: 140,
-        height: 140,
-        borderRadius: 2,
+        width: 160,
+        height: 160,
+        borderRadius: 3,
+        resizeMode : 'cover'
     },
     titleContainer: {
         paddingTop: 8,
@@ -50,4 +51,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default MainListItem;
+export default MainImageItem;
