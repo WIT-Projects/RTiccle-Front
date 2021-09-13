@@ -97,7 +97,7 @@ let addTiccle = (_group, _title, _link, _tagList, _mainImage) =>{
             mainImage:  _mainImage,
             contentList: []
         });
-        ticcle.contentList.push({id: 2, title: "서브 타이틀", link: "링크", imageList: [], content: "내용"})
+        // ticcle.contentList.push({id: 2, title: "서브 타이틀", link: "링크", imageList: [], content: "내용"})
     });
 }
 
