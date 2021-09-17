@@ -8,7 +8,7 @@ async function uploadImageToStorage(imageName, source) {
     // source: use the Blob or File API or Uint8Array or ...
 
     // Upload file to the object 'ticcle/{uid}/{imageName}'
-    var uploadTask = userRef.child(imageName).put(source);
+    var uploadTask = userRef.child(imageName).putFile(source);
     var imgaeLink = undefined;
 
     // Listen for state changes, errors, and completion of the upload.

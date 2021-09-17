@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert, Button, FlatList, Modal, ImageBackground, Pressable} from "react-native";
+import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert, Button, FlatList, Modal, ImageBackground, Pressable, ToastAndroid} from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import AutoTag from './autotag/AutoTag';
 import SubTiccleList from './SubTiccleList';
@@ -7,6 +7,9 @@ import ScrollTag from './ScrollTag';
 import ImagePicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import Animated from "react-native-reanimated";
+
+import { uploadImageToStorage } from '../../../firebase/Storage'
+import { handleBigTiccle } from "../../../firebase/HandleTiccle"; // use this!
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -88,6 +91,21 @@ export default function MainTiccle() {
         });
     }
 
+    const saveBigTiccle = () => {
+        // TODO check input
+        // TODO upload BigTiccle
+
+        // Uplaod image to storage (image name: Date() for temporary)
+        let imageUrl = image.replace('file://', ''); // android
+        uploadImageToStorage(Date() + ".jpg", imageUrl)
+        .then((res) => {
+            console.log(res);
+            ToastAndroid.show("이미지 저장 완료", ToastAndroid.SHORT);
+        })
+
+        // TODO Change View
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
@@ -99,7 +117,7 @@ export default function MainTiccle() {
                             <Text style={styles.titleText}>R-Ticcle</Text>
                         </View>
                         <View onTouchEnd={() => { }}>
-                            <Text style={styles.iconRight}>저장</Text>
+                            <Text style={styles.iconRight} onPress={saveBigTiccle}>저장</Text>
                         </View>
                     </View>
                 </View>
