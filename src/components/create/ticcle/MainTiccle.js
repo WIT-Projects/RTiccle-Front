@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         width: windowWidth,
         height: "100%",
+        position: 'relative',
     },
     titleBar: {
         backgroundColor: '#ffffff',
@@ -259,9 +260,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     modalView: {
+        position: 'absolute',
+        top: '50%',
+        left: '5%',
+        textAlign: 'center',
         marginTop: 250,
-        width: 300,
-        marginLeft: '12%',
+        width: '90%',
         backgroundColor: "white",
         borderRadius: 10,
         padding: 30,
