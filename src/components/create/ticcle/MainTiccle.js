@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert, Button, FlatList } from "react-native";
+import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert, Button, FlatList, Modal, ImageBackground, Pressable} from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import AutoTag from './autotag/AutoTag';
 import SubTiccleList from './SubTiccleList';
 import ScrollTag from './ScrollTag';
+import ImagePicker from 'react-native-image-crop-picker';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Animated from "react-native-reanimated";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -49,6 +52,41 @@ export default function MainTiccle() {
             content: "휴대폰, 컴퓨터, 내비게이션 등 디지털 기기를 작동시키는 명령어나 기법을 포함하는 사용자 환경을 뜻한다. 이용자들이 IT기기를 구동하기 위해서 접촉하는 매개체로 컴퓨터asdfasdfasfd"
         },
     ]
+    const [image, setImage] = useState('https://images.unsplash.com/photo-1576515652031-fc429bab6503?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80');
+    const[modalVisible, setModalVisible] = useState(false);
+    
+    const takePhotoFromCamera = () => {
+        ImagePicker.openCamera({
+            cropperToolbarWidgetColor: '#479583',
+            cropperToolbarTitle: '',
+            cropperActiveWidgetColor: '#479583',
+            cropping: true,
+            cropping: true,
+            compressImageQuality: 0.7
+        }).then(image => {
+            setImage(image.path);
+            setModalVisible(false);
+        }).catch(error => {
+            if (error.code === 'E_PICKER_CANCELLED')
+            return false;
+        });
+    }
+    
+    const choosePhotoFromLibrary = () => {
+        ImagePicker.openPicker({
+            cropperToolbarWidgetColor: '#479583',
+            cropperToolbarTitle: '',
+            cropperActiveWidgetColor: '#479583',
+            cropping: true,
+            compressImageQuality: 0.7
+        }).then(image => {
+            setModalVisible(false);
+            setImage(image.path);
+        }).catch(error => {
+            if (error.code === 'E_PICKER_CANCELLED')
+                return false;
+        });
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -80,7 +118,12 @@ export default function MainTiccle() {
                 <TextInput style={styles.textInput} onChangeText={onChangeLink} placeholder=" 원본글 링크 or 파일(선택)" />
                 <AutoTag />
 
-                {/* button */}
+                {/* main image */}
+                <TouchableOpacity onPress={() => { setModalVisible(true) }} style={{marginLeft: 30, width: 150, height: 150, }}>
+                    <ImageBackground source={{ uri: image }} style={styles.mainImage} imageStyle={{ borderRadius: 15 }}>
+                        <Icon name="camera" size={35} color="#fff" style={styles.mainImageIcon}/>
+                    </ImageBackground>
+                </TouchableOpacity>
                 <View style={styles.addButton}>
                     <Text style={styles.addButtonText} onTouchEnd={() => { navigateTo.navigate('SubTiccle') }}>내용 추가 +</Text>
                 </View>
@@ -90,6 +133,16 @@ export default function MainTiccle() {
                     {data.map((item) => { return (<SubTiccleList key={item.id} date={item.date} title={item.title} imgUrl={item.imgUrl} content={item.content}/>) })}
                 </View>
             </ScrollView>
+
+            {/* image modal */}
+            <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={() => { setModalVisible(!modalVisible);}}>
+                <View>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText} onPress={takePhotoFromCamera} >사진 촬영</Text>
+                        <Text style={styles.modalText} onPress={choosePhotoFromLibrary}>앨범에서 사진 선택</Text>
+                    </View>
+                </View>
+            </Modal>
         </SafeAreaView>
     )
 }
@@ -150,10 +203,10 @@ const styles = StyleSheet.create({
     labelText: {
         fontFamily: 'NotoSansKR-Bold',
         fontSize: 14,
-        color: '#D6D6D6', //
+        color: '#D6D6D6',
         borderWidth: 1.5,
-        borderColor: '#D6D6D6', //
-        backgroundColor: '#FFFFFF', //
+        borderColor: '#D6D6D6',
+        backgroundColor: '#FFFFFF',
         borderRadius: 8,
         padding: 5,
         lineHeight: 20,
@@ -192,5 +245,39 @@ const styles = StyleSheet.create({
         color: '#6B6B6B',
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    mainImage: {
+        height: 150,
+        width: 150,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    mainImageIcon: {
+        opacity: 0.7,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    modalView: {
+        marginTop: 250,
+        width: 300,
+        marginLeft: '12%',
+        backgroundColor: "white",
+        borderRadius: 10,
+        padding: 30,
+        justifyContent: 'center',
+        alignItems: "flex-start",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    modalText: {
+        marginVertical: 5,
+        textAlign: "center"
     },
 });
