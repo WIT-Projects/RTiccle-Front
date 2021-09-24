@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { uploadImageToStorage } from '../../../firebase/Storage'
 import { handleBigTiccle } from "../../../firebase/HandleTiccle"; // use this!
 
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -25,12 +26,17 @@ export default function MainTiccle() {
     const [title, onChangeTitle] = useState("");
     const [link, onChangeLink] = useState("");
 
-    const [button1, setButton1] = useState(false);
-    const [button2, setButton2] = useState(false);
-    const [button3, setButton3] = useState(false);
-    const [button4, setButton4] = useState(false);
-    const [button5, setButton5] = useState(false);
-    const [button6, setButton6] = useState(false);
+    const [buttons, setButton] = useState([false,false,false,false,false,false]);
+
+    const onChange = id => {
+        setButton((checks) => checks.map((c, i) => (i === id ? true : false)))
+    }
+
+    let tag = []
+
+    const getTag = (x) => {
+        tag = x;
+    }
 
     const data = [
         {
@@ -91,19 +97,54 @@ export default function MainTiccle() {
         });
     }
 
+    const getGroup = () => {
+        let num = -1
+        buttons.map((c, i) => (c === true ? num = i : num = -1)
+        )
+        return num
+    }
+
     const saveBigTiccle = () => {
         // TODO check input
-        // TODO upload BigTiccle
+        let groupNum = getGroup();
+        if(groupNum == -1){
+            return
+        }
+        console.log("그룹확인");
+        const urlRegex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+        if(urlRegex.test(link) == false){
+            return
+        }
+        console.log("URL확인");
+
+        var tagArry = new Array();
+        for(i in tag){
+            tagArry.push(i.tagName)
+            console.log(i.tagName)
+        }
+
+        //BigTiccle
+        let bigTiccle = {
+            lastModifiedTime: new Date().getTime(),
+            group: groupNum, // BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
+            title: title,
+            link: link, //
+            tagList: tagArry,
+        }
+
+        //업로드
+        let imageUrl = image.replace('file://', ''); // android
+        handleBigTiccle(bigTiccle, Date() + ".jpg", imageUrl)
 
         // Uplaod image to storage (image name: Date() for temporary)
-        let imageUrl = image.replace('file://', ''); // android
-        uploadImageToStorage(Date() + ".jpg", imageUrl)
-        .then((res) => {
-            console.log(res);
-            ToastAndroid.show("이미지 저장 완료", ToastAndroid.SHORT);
-        })
+        // uploadImageToStorage(Date() + ".jpg", imageUrl)
+        // .then((res) => {
+        //     console.log(res);
+        //     ToastAndroid.show("이미지 저장 완료", ToastAndroid.SHORT);
+        // })
 
         // TODO Change View
+        // 현재 저장하는 큰 티끌 id로 데이터 불러오는 API필요함
     }
 
     return (
@@ -123,18 +164,14 @@ export default function MainTiccle() {
                 </View>
                 {/* label */}
                 <View style={styles.labelContainer}>
-                    <Text style={button1 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton1(!button1) }}>{label[0]}</Text>
-                    <Text style={button2 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton2(!button2) }}>{label[1]}</Text>
-                    <Text style={button3 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton3(!button3) }}>{label[2]}</Text>
-                    <Text style={button4 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton4(!button4) }}>{label[3]}</Text>
-                    <Text style={button5 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton5(!button5) }}>{label[4]}</Text>
-                    <Text style={button6 ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { setButton6(!button6) }}>{label[5]}</Text>
+                    {label.map((item, index) => { return (<Text key={item} style={ buttons[index] ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { onChange(index) }}>{item}</Text>) })}
                 </View>
 
                 {/* TextInput */}
                 <TextInput style={styles.textInput} onChangeText={onChangeTitle} placeholder=" 제목" />
                 <TextInput style={styles.textInput} onChangeText={onChangeLink} placeholder=" 원본글 링크 or 파일(선택)" />
-                <AutoTag />
+                <AutoTag getTag={getTag}/>
+                {/* <AutoTag/> */}
 
                 {/* main image */}
                 <TouchableOpacity onPress={() => { setModalVisible(true) }} style={{marginLeft: 30, width: 150, height: 150, }}>

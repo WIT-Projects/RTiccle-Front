@@ -2,15 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import { SafeAreaView, StyleSheet, ScrollView, TextInput, View, Text, TouchableOpacity, Image} from "react-native";
 
 
-export default function AutoTag() {
+export default function AutoTag(props) {
 
   const [text, onChangeText] = useState("");
   const [tag, setTag] = useState([{
-    id : 0,
-    tagName : '',
-    length : 0
-  }
-]);
+      id : 0,
+      tagName : '',
+      length : 0
+    }
+  ]);
 
   const nextId = useRef(1);
   const [visible, setVisible] = useState(true);
@@ -25,7 +25,6 @@ export default function AutoTag() {
     };
   }
 
-
   useEffect(() => {
     (tag.length > 1 || text.length > 0) ?  setVisible(false) : setVisible(true) ;
 
@@ -39,15 +38,12 @@ export default function AutoTag() {
         length : text.length - 2
       }
       setTag([...tag, newTag]);
+      props.getTag(tag);
       onChangeText("");
       nextId.current += 1;
       setInputWidth(50)
     }
   }, [text])
-
-
-
-
 
   return (
     <View style={styles.inputContainer}>
@@ -159,4 +155,3 @@ const styles = StyleSheet.create({
     color : '#ffffff',
   }
 });
-
