@@ -18,6 +18,7 @@ export default function AutoTag(props) {
 
   const onRemove = id => {
     setTag(tag.filter(tag => tag.id !== id));
+    props.getTag(tag);
     nextId.current -= 1;
     if (nextId.current == 1) {
       setInputWidth(340);

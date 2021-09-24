@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { uploadImageToStorage } from '../../../firebase/Storage'
 import { handleBigTiccle } from "../../../firebase/HandleTiccle"; // use this!
+import { range } from "d3-array";
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -35,7 +36,11 @@ export default function MainTiccle() {
     let tag = []
 
     const getTag = (x) => {
-        tag = x;
+        tag.splice(0);
+        for(i in x){
+            tag.push(x[i].tagName);
+            console.log("태그 확인: "+ tag[i]);
+        }
     }
 
     const data = [
@@ -98,30 +103,29 @@ export default function MainTiccle() {
     }
 
     const getGroup = () => {
-        let num = -1
-        buttons.map((c, i) => (c === true ? num = i : num = -1)
-        )
-        return num
+        let num = -1;
+        buttons.map((c, i) =>{
+            if(c == true){
+                num = i;
+            }
+        })
+        return num;
     }
 
     const saveBigTiccle = () => {
         // TODO check input
-        let groupNum = getGroup();
+        var groupNum = getGroup();
+        console.log("그룹 확인:"+groupNum);
         if(groupNum == -1){
             return
         }
-        console.log("그룹확인");
+
         const urlRegex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
         if(urlRegex.test(link) == false){
+            console.log("URL false");
             return
         }
-        console.log("URL확인");
-
-        var tagArry = new Array();
-        for(i in tag){
-            tagArry.push(i.tagName)
-            console.log(i.tagName)
-        }
+        console.log("URL true");
 
         //BigTiccle
         let bigTiccle = {
@@ -129,12 +133,16 @@ export default function MainTiccle() {
             group: groupNum, // BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
             title: title,
             link: link, //
-            tagList: tagArry,
+            tagList: tag,
         }
 
-        //업로드
+        //이미지 설정
         let imageUrl = image.replace('file://', ''); // android
+
+        //저장
         handleBigTiccle(bigTiccle, Date() + ".jpg", imageUrl)
+
+        // 이미지가 null일때도 적용이 되는지?
 
         // Uplaod image to storage (image name: Date() for temporary)
         // uploadImageToStorage(Date() + ".jpg", imageUrl)
@@ -171,7 +179,6 @@ export default function MainTiccle() {
                 <TextInput style={styles.textInput} onChangeText={onChangeTitle} placeholder=" 제목" />
                 <TextInput style={styles.textInput} onChangeText={onChangeLink} placeholder=" 원본글 링크 or 파일(선택)" />
                 <AutoTag getTag={getTag}/>
-                {/* <AutoTag/> */}
 
                 {/* main image */}
                 <TouchableOpacity onPress={() => { setModalVisible(true) }} style={{marginLeft: 30, width: 150, height: 150, }}>
