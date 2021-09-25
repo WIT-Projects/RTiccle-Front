@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert, Button, FlatList, Modal, ImageBackground, Pressable, ToastAndroid} from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import AutoTag from './autotag/AutoTag';
 import SubTiccleList from './SubTiccleList';
 import ImagePicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Toast from 'react-native-easy-toast';
+
 // import Animated from "react-native-reanimated";
 
 import { uploadBigTiccle } from "../../../firebase/HandleTiccle";
@@ -31,7 +33,7 @@ export default function MainTiccle() {
         setButton((checks) => checks.map((c, i) => (i === id ? true : false)))
     }
 
-    let tag = []
+    let tag = [];
 
     const getTag = (x) => {
         tag.splice(0);
@@ -40,6 +42,12 @@ export default function MainTiccle() {
             console.log("태그 확인: "+ tag[i]);
         }
     }
+
+    const toastRef = useRef();
+
+    const showCopyToast = useCallback((str) => {
+        toastRef.current.show(str);
+    }, []);
 
     const data = [
         {
@@ -115,15 +123,24 @@ export default function MainTiccle() {
         var groupNum = getGroup();
         console.log("그룹 확인:"+groupNum);
         if(groupNum == -1){
+            showCopyToast("그룹을 선택해주세요.");
             return
         }
 
-        const urlRegex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-        if(urlRegex.test(link) == false){
-            console.log("URL false");
+        if(link != ""){
+            const urlRegex = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+            if(urlRegex.test(link) == false){
+                console.log("URL false");
+                showCopyToast("링크 형식이 올바르지 않습니다.");
+                return
+            }
+            console.log("URL true");
+        }
+
+        if(title == ""){
+            showCopyToast("제목을 입력해주세요.");
             return
         }
-        console.log("URL true");
 
         //BigTiccle
         let bigTiccle = {
@@ -140,17 +157,7 @@ export default function MainTiccle() {
         //저장
         uploadBigTiccle(bigTiccle, Date() + ".jpg", imageUrl)
 
-        // 이미지가 null일때도 적용이 되는지?
-
-        // Uplaod image to storage (image name: Date() for temporary)
-        // uploadImageToStorage(Date() + ".jpg", imageUrl)
-        // .then((res) => {
-        //     console.log(res);
-        //     ToastAndroid.show("이미지 저장 완료", ToastAndroid.SHORT);
-        // })
-
         // TODO Change View
-        // 현재 저장하는 큰 티끌 id로 데이터 불러오는 API필요함
     }
 
     return (
@@ -203,6 +210,13 @@ export default function MainTiccle() {
                     </View>
                 </View>
             </Modal>
+
+            <Toast ref={toastRef}
+             positionValue={windowHeight * 0.55}
+             fadeInDuration={200}
+             fadeOutDuration={1000}
+             style={{backgroundColor:'rgba(33, 87, 243, 0.5)'}}
+      />
         </SafeAreaView>
     )
 }
