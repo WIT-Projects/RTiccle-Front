@@ -1,6 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
 import auth from "@react-native-firebase/auth";
-import {ToastAndroid} from 'react-native'
 
 const user = auth().currentUser;
 const userTiccleDoc = firestore().collection('Ticcle').doc(user.uid);
@@ -16,12 +15,11 @@ const userTiccleDoc = firestore().collection('Ticcle').doc(user.uid);
         mainImage: String //"downloadURL"
     }
  */
-function uploadBigTiccle(bigTiccle){
+function uploadBigTiccleToFirestore(bigTiccle){
     userTiccleDoc.collection("BigTiccle")
     .add(bigTiccle)
     .then(() => {
         console.log('BigTiccle added!');
-        ToastAndroid.show("BigTiccle added!", ToastAndroid.SHORT)
     });
 }
 
@@ -36,16 +34,15 @@ function uploadBigTiccle(bigTiccle){
         content: String
     }
  */
-function uploadSmallTiccle(docRef, smallTiccle){
+function uploadSmallTiccleToFirestore(docRef, smallTiccle){
     docRef.collection("SmallTiccle")
     .add(smallTiccle)
     .then(() => {
         console.log('SmallTiccle added!');
-        ToastAndroid.show("SmallTiccle added!", ToastAndroid.SHORT)
     });
 }
 
 export {
-    uploadBigTiccle,
-    uploadSmallTiccle,
+    uploadBigTiccleToFirestore,
+    uploadSmallTiccleToFirestore,
 }

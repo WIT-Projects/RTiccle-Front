@@ -3,14 +3,12 @@ import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView
 import { useNavigation } from '@react-navigation/native';
 import AutoTag from './autotag/AutoTag';
 import SubTiccleList from './SubTiccleList';
-import ScrollTag from './ScrollTag';
 import ImagePicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import Animated from "react-native-reanimated";
 
-import { uploadImageToStorage } from '../../../firebase/Storage'
-import { handleBigTiccle } from "../../../firebase/HandleTiccle"; // use this!
-import { range } from "d3-array";
+import { uploadBigTiccle } from "../../../firebase/HandleTiccle";
+import firestore from '@react-native-firebase/firestore';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -129,7 +127,7 @@ export default function MainTiccle() {
 
         //BigTiccle
         let bigTiccle = {
-            lastModifiedTime: new Date().getTime(),
+            lastModifiedTime: firestore.Timestamp.fromDate(new Date()),
             group: groupNum, // BOOK(0), BLOG(1), NEWS(2), WEB(3), SNS(4), ETC(5)
             title: title,
             link: link, //
@@ -140,7 +138,7 @@ export default function MainTiccle() {
         let imageUrl = image.replace('file://', ''); // android
 
         //저장
-        handleBigTiccle(bigTiccle, Date() + ".jpg", imageUrl)
+        uploadBigTiccle(bigTiccle, Date() + ".jpg", imageUrl)
 
         // 이미지가 null일때도 적용이 되는지?
 

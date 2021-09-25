@@ -11,21 +11,20 @@ async function uploadImageToStorage(imageName, source) {
     var uploadTask = userRef.child(imageName).putFile(source);
     var imgaeLink = undefined;
 
-    // Listen for state changes, errors, and completion of the upload.
-    uploadTask.on(storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-        function(snapshot) {
-            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        }, function(error) {
-            // Handle error
-            console.log(error.code)
-        }, function() {
-            // Upload completed successfully, now we can get the download URL
-            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                console.log('File available at', downloadURL);
-                imgaeLink = downloadURL
-            });
-        })
-    uploadTask.then(() => { return imgaeLink })
+    return new Promise((resolve, reject) => {     
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(storage.TaskEvent.STATE_CHANGED, function(snapshot) {
+        // Observe state change events such as progress, pause, and resume
+        }, function(err) {
+            // Handle unsuccessful uploads
+            return reject(err);
+        }, function complete() {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            let downloadURL = uploadTask.snapshot.ref.getDownloadURL();
+            return resolve(downloadURL);
+        });
+    });
 }
 
 export {

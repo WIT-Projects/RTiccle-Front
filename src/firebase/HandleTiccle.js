@@ -1,4 +1,4 @@
-import { uploadBigTiccle, uploadSmallTiccle } from "./Firestore";
+import { uploadBigTiccleToFirestore, uploadSmallTiccleToFirestore } from "./Firestore";
 import { uploadImageToStorage } from "./Storage";
 
 /**
@@ -14,7 +14,7 @@ import { uploadImageToStorage } from "./Storage";
  * @param {*} imgName main image's name [for now, Date() + '.jpg'] 
  * @param {*} imgURL local image url (if OS is android, replace 'file://' from url!)
  */
-async function handleBigTiccle(
+async function uploadBigTiccle(
     bigTiccle, imgName, imgURL
 ) {
     // upload image first
@@ -22,10 +22,10 @@ async function handleBigTiccle(
     .then((downloadURL) => {
         // TODO handle error
         var newBigTiccle = {...bigTiccle, mainImage: downloadURL} // add image url
-        uploadBigTiccle(newBigTiccle);
+        uploadBigTiccleToFirestore(newBigTiccle);
     })
 }
 
 export {
-    handleBigTiccle,
+    uploadBigTiccle,
 }
