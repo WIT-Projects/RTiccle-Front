@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
-import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert, Button } from "react-native";
+import React from "react";
+import { TextInput, SafeAreaView, View, StyleSheet, Text,  Image, TouchableOpacity } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
-const windowWidth = Dimensions.get('window').width;
 
 const SubTiccleList = ({date, title, imgUrl, content}) => {
     
@@ -21,9 +20,9 @@ const SubTiccleList = ({date, title, imgUrl, content}) => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ffffff',
-        marginHorizontal: 25,
+        marginHorizontal: 20,
         elevation: 5,
-        marginTop:25,
+        marginBottom:25,
         padding: 15,
     },
     date:{

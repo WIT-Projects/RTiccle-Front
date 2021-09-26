@@ -6,7 +6,6 @@ import Mountain from './Mountain/Mountain';
 import setMainView from '../../data/hook/setMainView';
 
 const imgContainerHeight = 220;
-const ContainerWidth = 350;
 
 export default function MainContainer() {
 
@@ -62,11 +61,12 @@ const styles = StyleSheet.create({
   mainContainer :{
     flex: 1,
     alignItems: 'center',
+    paddingHorizontal : 20,
     paddingBottom: 16,
   },
   imgContainer: {
     height : imgContainerHeight,
-    width : ContainerWidth,
+    width : '100%',
     marginTop: 30,
     alignItems : 'center'
   },
@@ -85,8 +85,9 @@ const styles = StyleSheet.create({
 
   filterMenu:{
     flexDirection : 'row',
-    width : ContainerWidth,
+    width : '100%',
     marginTop: 14,
+
   },
   filterTextContainerNoSelect:{
     flex : 2,
@@ -127,14 +128,15 @@ const styles = StyleSheet.create({
     marginLeft : 12,
   },
   filterIcon:{
-    width: 21,
-    height : 21,
+    width: 20,
+    height : 20,
+    marginLeft : 4,
     resizeMode : 'contain'
   },
   filterIconImage :{
-    width : 21,
-    height : 21,
+    width : 24,
+    height : 24,
     resizeMode : 'contain',
-    marginTop : 2,
+    marginTop : 3,
   }
 })

@@ -26,7 +26,7 @@ export default function MainListItem() {
 
 const styles = StyleSheet.create({
   container:{
-    width : 350,
+    width : '100%',
     flexDirection : 'row',
     justifyContent : 'space-between',
     alignItems : 'center',

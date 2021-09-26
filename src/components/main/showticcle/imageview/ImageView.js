@@ -5,7 +5,7 @@ import MainImageItem from './ticcle/MainImageItem';
 
 export default function ImageView() {
   return(
-<View>
+<View style={styles.container}>
         <Text style={styles.day}>2021.06.28</Text>
         <View style={styles.content}>
           <MainImageItem/>
@@ -31,18 +31,19 @@ export default function ImageView() {
 }
 
 const styles = StyleSheet.create({
+  container : {
+    paddingHorizontal : 24,
+  },
   content: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
-    paddingHorizontal: 26,
   },
   day: {
-    paddingHorizontal: 26,
     fontFamily: 'Roboto',
     fontWeight: '700',
-    fontSize: 11,
+    fontSize: 17,
     marginRight: 'auto',    
     paddingBottom: 16,
   },

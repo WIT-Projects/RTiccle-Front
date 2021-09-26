@@ -5,7 +5,7 @@ import MainListItem from './ticcle/MainListItem';
 
 export default function ListView() {
   return(
-<View>
+<View style={styles.container}>
         <Text style={styles.day}>2021.06.28</Text>
         <View style={styles.content}>
           <MainListItem/>
@@ -31,15 +31,16 @@ export default function ListView() {
 }
 
 const styles = StyleSheet.create({
+  container : {
+    paddingHorizontal : 20,
+  },
   content: {
     justifyContent: 'space-between',
     flexWrap: 'wrap',
-    paddingHorizontal: 26,
 
     
   },
   day: {
-    paddingHorizontal: 26,
     fontFamily: 'Roboto',
     fontWeight: '700',
     fontSize: 17,

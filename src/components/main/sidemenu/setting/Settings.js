@@ -90,11 +90,10 @@ const styles = StyleSheet.create({
   },
   iconContainer : {
     position : 'absolute',
-    top : 16,
-    left : 20,
+    top : 17,
+    left : 17,
   },
   iconBack : {
-    width : 12,
     height : 20,
     resizeMode : 'contain'
   },
@@ -105,6 +104,8 @@ const styles = StyleSheet.create({
   settingListContainer : {
     marginTop : 18,
   },
+
+
   listContainer : {
     alignItems : 'center',
     paddingVertical: 6,
@@ -113,7 +114,8 @@ const styles = StyleSheet.create({
     flexDirection : 'row',
     alignItems : 'center',
     justifyContent : 'space-between',
-    width : ContainerWidth
+    width : '100%',
+    paddingHorizontal : 20,
   },
   listText: {
     fontFamily : 'NotoSansKR-Regular',

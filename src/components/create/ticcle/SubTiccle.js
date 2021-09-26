@@ -1,12 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { TextInput, SafeAreaView, View, StyleSheet, Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert, Button } from "react-native";
+import { TextInput, SafeAreaView, View, StyleSheet, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
-const tabBarHeight = 51;
-const ContainerWidth = 350;
+const tabBarHeight = 55;
 
 export default function SubTiccle() {
     const navigateTo = useNavigation();
@@ -34,13 +30,17 @@ export default function SubTiccle() {
                 {/* Navigator */}
                 <View style={styles.titleBar}>
                     <View style={styles.titleBarContainer}>
-                        <Image onTouchEnd={() => { navigateTo.goBack() }} source={require('../../../../assets/images/icon/icon_back.png')} style={styles.iconLeft} />
-                        <View onTouchEnd={() => { navigateTo.navigate('Main') }}>
+                        <TouchableOpacity style={styles.iconLeftContainer}>
+                            <Image onTouchEnd={() => { navigateTo.goBack() }} source={require('../../../../assets/images/icon/icon_back.png')} style={styles.iconLeft} />
+                        </TouchableOpacity>
+
+                        <View>
                             <Text style={styles.titleText}>R-Ticcle</Text>
                         </View>
-                        <View onTouchEnd={() => { }}>
+
+                        <TouchableOpacity style={styles.iconRightContainer}>
                             <Text style={styles.iconRight}>저장</Text>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -49,9 +49,9 @@ export default function SubTiccle() {
                 <TextInput style={styles.textInput} onChangeText={onChangeLink} placeholder=" 원본글 링크 or 파일(선택)" />
 
                 {/* button */}
-                <View style={styles.addButton}>
+                <TouchableOpacity style={styles.addButton}>
                     <Text style={styles.addButtonText}>이미지 추가 +</Text>
-                </View>
+                </TouchableOpacity>
                 {/* TextArea */}
                 <TextInput multiline={true} numberOfLines={10} style={styles.textAreaInput} onChangeText={onChangeContent} placeholder="내용을 입력하세요" />
             </ScrollView>
@@ -62,7 +62,7 @@ export default function SubTiccle() {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ffffff',
-        width: windowWidth,
+        width: '100%',
         height: "100%",
     },
     titleBar: {
@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
         height: tabBarHeight,
         width: '100%',
         alignItems: 'center',
-        marginTop: 4,
 
         //bottom-Shadow
         shadowColor: "#000000",
@@ -82,22 +81,35 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     titleBarContainer: {
-        width: ContainerWidth,
+        width: '100%',
         height: tabBarHeight,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
+        paddingHorizontal : 20,
     },
     titleText: {
         color: '#6BDCC2',
-        fontSize: 23,
-        fontFamily: 'NotoSansKR-Bold',
-        alignItems: 'center',
-        lineHeight: 30,
+        fontSize : 24,
+        fontFamily : 'NotoSansKR-Bold',
+        alignItems : 'center',
+        lineHeight : 32,
     },
+
+    iconLeftContainer : {
+        position : 'absolute',
+        top : 17,
+        left : 20,
+    },
+
     iconLeft: {
         resizeMode: "contain",
-        marginRight: 20,
+        height : 20,
+    },
+
+    iconRightContainer : {
+        position : 'absolute',
+        right : 20,
     },
 
     iconRight: {
@@ -105,7 +117,9 @@ const styles = StyleSheet.create({
         fontSize: 17,
         fontFamily: 'NotoSansKR-Bold',
         alignItems: 'center',
+
     },
+
     labelContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',

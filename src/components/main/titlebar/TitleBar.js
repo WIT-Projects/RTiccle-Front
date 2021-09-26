@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet,  Text,  Image, TouchableOpacity } from 'react-native';
 
 const tabBarHeight = 55;
-const ContainerWidth = 350;
 
 export default function TitleBar({navigation}) {
   return(
@@ -42,7 +41,8 @@ const styles = StyleSheet.create({
   elevation: 6,
   },
   titleBarContainer:{
-    width : ContainerWidth,
+    width : '100%',
+    paddingHorizontal: 20,
     height : tabBarHeight,
     flexDirection : 'row',
     alignItems :'center',
@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
   },
   titleText:{
     color: '#6BDCC2',
-    fontSize : 23,
+    fontSize : 24,
     fontFamily : 'NotoSansKR-Bold',
     alignItems : 'center',
-    lineHeight : 30,
+    lineHeight : 32,
   },
   iconLeft:{
     marginTop: 2,

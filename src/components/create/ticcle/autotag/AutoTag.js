@@ -2,15 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import { SafeAreaView, StyleSheet, ScrollView, TextInput, View, Text, TouchableOpacity, Image} from "react-native";
 
 
-export default function AutoTag(props) {
+export default function AutoTag() {
 
   const [text, onChangeText] = useState("");
   const [tag, setTag] = useState([{
-      id : 0,
-      tagName : '',
-      length : 0
-    }
-  ]);
+    id : 0,
+    tagName : '',
+    length : 0
+  }
+]);
 
   const nextId = useRef(1);
   const [visible, setVisible] = useState(true);
@@ -18,13 +18,13 @@ export default function AutoTag(props) {
 
   const onRemove = id => {
     setTag(tag.filter(tag => tag.id !== id));
-    props.getTag(tag);
     nextId.current -= 1;
     if (nextId.current == 1) {
       setInputWidth(340);
       setVisible(true);
     };
   }
+
 
   useEffect(() => {
     (tag.length > 1 || text.length > 0) ?  setVisible(false) : setVisible(true) ;
@@ -39,12 +39,15 @@ export default function AutoTag(props) {
         length : text.length - 2
       }
       setTag([...tag, newTag]);
-      props.getTag(tag);
       onChangeText("");
       nextId.current += 1;
       setInputWidth(50)
     }
   }, [text])
+
+
+
+
 
   return (
     <View style={styles.inputContainer}>
@@ -80,9 +83,8 @@ export default function AutoTag(props) {
 const styles = StyleSheet.create({
   inputContainer : {
     position : 'relative',
-    marginHorizontal: 25,
+    marginHorizontal: 20,
     height : 48,
-    width : 350,
     margin: 12,
     borderBottomColor:'#CECECE',
     borderBottomWidth: 1,
@@ -156,3 +158,4 @@ const styles = StyleSheet.create({
     color : '#ffffff',
   }
 });
+

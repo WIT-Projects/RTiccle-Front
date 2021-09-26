@@ -16,7 +16,7 @@ import firestore from '@react-native-firebase/firestore';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const tabBarHeight = 51;
+const tabBarHeight = 55;
 const imgContainerHeight = 220;
 const ContainerWidth = 350;
 
@@ -166,15 +166,18 @@ export default function MainTiccle() {
                 {/* Navigator */}
                 <View style={styles.titleBar}>
                     <View style={styles.titleBarContainer}>
-                        <Image onTouchEnd={() => { navigateTo.goBack() }} source={require('../../../../assets/images/icon/icon_back.png')} style={styles.iconLeft} />
-                        <View onTouchEnd={() => { navigateTo.navigate('Main') }}>
+                        <TouchableOpacity style={styles.iconLeftContainer}>
+                            <Image onTouchEnd={() => { navigateTo.goBack() }} source={require('../../../../assets/images/icon/icon_back.png')} style={styles.iconLeft} />
+                        </TouchableOpacity>
+                        <View>
                             <Text style={styles.titleText}>R-Ticcle</Text>
                         </View>
-                        <View onTouchEnd={() => { }}>
-                            <Text style={styles.iconRight} onPress={saveBigTiccle}>저장</Text>
-                        </View>
+                        <TouchableOpacity style={styles.iconRightContainer}>
+                            <Text style={styles.iconRight}>저장</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
+
                 {/* label */}
                 <View style={styles.labelContainer}>
                     {label.map((item, index) => { return (<Text key={item} style={ buttons[index] ? styles.pressedLabelText : styles.labelText} onTouchEnd={() => { onChange(index) }}>{item}</Text>) })}
@@ -186,37 +189,46 @@ export default function MainTiccle() {
                 <AutoTag getTag={getTag}/>
 
                 {/* main image */}
-                <TouchableOpacity onPress={() => { setModalVisible(true) }} style={{marginLeft: 30, width: 150, height: 150, }}>
+                <TouchableOpacity onPress={() => { setModalVisible(true) }} style={{marginLeft: 20, width: 150, height: 150, }}>
                     <ImageBackground source={{ uri: image }} style={styles.mainImage} imageStyle={{ borderRadius: 15 }}>
                         <Icon name="camera" size={35} color="#fff" style={styles.mainImageIcon}/>
                     </ImageBackground>
                 </TouchableOpacity>
-                <View style={styles.addButton}>
-                    <Text style={styles.addButtonText} onTouchEnd={() => { navigateTo.navigate('SubTiccle') }}>내용 추가 +</Text>
-                </View>
+
+                <TouchableOpacity style={styles.addButton} onPress={() => { navigateTo.navigate('SubTiccle') }}>
+                    <Text style={styles.addButtonText}>내용 추가 +</Text>
+                </TouchableOpacity>
 
                 {/* SubTiccle list */}
-                <View>
+                <View style={styles.subTiccleContainer}>
                     {data.map((item) => { return (<SubTiccleList key={item.id} date={item.date} title={item.title} imgUrl={item.imgUrl} content={item.content}/>) })}
                 </View>
             </ScrollView>
 
             {/* image modal */}
-            <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={() => { setModalVisible(!modalVisible);}}>
-                <View>
+            <Modal animationType="fade" 
+            transparent={true} 
+            visible={modalVisible} 
+            onRequestClose={() => { setModalVisible(!modalVisible);}}
+            >
                     <View style={styles.modalView}>
-                        <Text style={styles.modalText} onPress={takePhotoFromCamera} >사진 촬영</Text>
-                        <Text style={styles.modalText} onPress={choosePhotoFromLibrary}>앨범에서 사진 선택</Text>
+                        <TouchableOpacity style={styles.modalTextContainer} onPress={takePhotoFromCamera} >
+                            <Text style={styles.modalText}>사진 촬영</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={styles.modalTextContainer} onPress={choosePhotoFromLibrary} >
+                            <Text style={styles.modalText}>앨범에서 사진 선택</Text>
+                        </TouchableOpacity>
+                        
                     </View>
-                </View>
             </Modal>
 
             <Toast ref={toastRef}
              positionValue={windowHeight * 0.55}
-             fadeInDuration={200}
-             fadeOutDuration={1000}
-             style={{backgroundColor:'rgba(33, 87, 243, 0.5)'}}
-      />
+            fadeInDuration={200}
+            fadeOutDuration={1000}
+            style={{backgroundColor:'rgba(33, 87, 243, 0.5)'}}
+    />
         </SafeAreaView>
     )
 }
@@ -229,40 +241,50 @@ const styles = StyleSheet.create({
         position: 'relative',
     },
     titleBar: {
-        backgroundColor: '#ffffff',
-        height: tabBarHeight,
-        width: '100%',
-        alignItems: 'center',
-        marginTop: 4,
-
+        backgroundColor : '#ffffff',
+        height : tabBarHeight,
+        width : '100%',
+        alignItems : 'center',
+    
         //bottom-Shadow
+    
         shadowColor: "#000000",
         shadowOffset: {
-            width: 0,
-            height: 1,
+        width: 0,
+        height: 1,
         },
-        shadowOpacity: 0.2,
-        elevation: 4,
+    shadowOpacity: 0.2,
+    elevation: 6,
     },
     titleBarContainer: {
-        width: ContainerWidth,
+        width: '100%',
         height: tabBarHeight,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
+        paddingHorizontal : 20,
     },
     titleText: {
         color: '#6BDCC2',
-        fontSize: 23,
-        fontFamily: 'NotoSansKR-Bold',
-        alignItems: 'center',
-        lineHeight: 30,
+        fontSize : 24,
+        fontFamily : 'NotoSansKR-Bold',
+        alignItems : 'center',
+        lineHeight : 32,
+    },
+    iconLeftContainer: {
+        position : 'absolute',
+        top : 17,
+        left : 20,
     },
     iconLeft: {
         resizeMode: "contain",
         marginRight: 20,
     },
 
+    iconRightContainer:{
+        position : 'absolute',
+        right : 20,
+    },
     iconRight: {
         color: '#6BDCC2',
         fontSize: 17,
@@ -270,10 +292,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     labelContainer: {
+        width : '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 32,
-        marginTop: 10,
+        marginTop: 20,
     },
     labelText: {
         fontFamily: 'NotoSansKR-Bold',
@@ -287,6 +310,7 @@ const styles = StyleSheet.create({
         lineHeight: 20,
         paddingLeft: 9,
     },
+
     pressedLabelText: {
         fontFamily: 'NotoSansKR-Bold',
         fontSize: 14,
@@ -300,7 +324,7 @@ const styles = StyleSheet.create({
         paddingLeft: 9,
     },
     textInput: {
-        marginHorizontal: 25,
+        marginHorizontal: 20,
         borderBottomColor: '#CECECE',
         borderBottomWidth: 1,
         fontSize: 16,
@@ -313,7 +337,7 @@ const styles = StyleSheet.create({
         borderColor: '#6BDCC2',
         borderRadius: 20,
         padding: 10,
-        marginHorizontal: 25,
+        marginHorizontal: 20,
         marginTop: 15,
     },
     addButtonText: {
@@ -333,29 +357,42 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    
+    subTiccleContainer :{
+        marginTop : 25,
+    },
+
+     // Modal
+    modalContainer:{
+        flex : 1,
+    },
     modalView: {
         position: 'absolute',
-        top: '50%',
+        top: '45%',
         left: '5%',
         textAlign: 'center',
-        marginTop: 250,
         width: '90%',
-        backgroundColor: "white",
+        backgroundColor: "#ffffff",
         borderRadius: 10,
-        padding: 30,
+        padding: 25,
         justifyContent: 'center',
         alignItems: "flex-start",
+
+
         shadowColor: "#000",
         shadowOffset: {
-          width: 0,
-          height: 2
+        width: 0,
+        height: 2
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5
     },
+    modalTextContainer: {
+        width : '100%',
+    },
     modalText: {
-        marginVertical: 5,
-        textAlign: "center"
+        marginVertical: 10,
     },
 });
+

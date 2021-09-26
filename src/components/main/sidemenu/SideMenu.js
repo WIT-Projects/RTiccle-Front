@@ -9,7 +9,10 @@ export default function SideMenu({navigation}) {
     <View style={styles.container}>
       {/* Profile */}
       <View style={styles.profileContainer}>
-        <Image source={require('../../../../assets/images/icon/icon_x.png')} style={styles.iconX} onTouchEnd={()=> {navigation.closeDrawer()}}/> 
+        <TouchableOpacity style={styles.iconXConatiner}>
+          <Image source={require('../../../../assets/images/icon/icon_x.png')} style={styles.iconX} onTouchEnd={()=> {navigation.closeDrawer()}}/> 
+        </TouchableOpacity>
+        
 
         {/* Img */}
         <View style={styles.profileImgContainer}>
@@ -60,12 +63,16 @@ const styles = StyleSheet.create({
     alignItems : 'center',
     justifyContent : 'center'
   },
-  iconX : {
+  iconXConatiner:{
     position : 'absolute',
     top : 8,
     right  : 8,
     width : 30,
     height : 30,
+  },
+  iconX : {
+    width : '100%',
+    height : '100%',
     resizeMode : 'contain'
   },
   profileImgContainer :{

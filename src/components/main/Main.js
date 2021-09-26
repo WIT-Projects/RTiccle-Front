@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, StyleSheet,  Text, Dimensions, ScrollView, Image, TouchableOpacity, Alert } from 'react-native';
+import React from 'react';
+import { View, StyleSheet,  ScrollView, Image, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 
 import TitleBar from './titlebar/TitleBar';
@@ -7,14 +7,6 @@ import MainContainer from './MainContainer';
 
 import ViewNav from './showticcle/ViewNav';
 
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
-// 비율로 설정? 아직 모름
-// const tabBarHeight = windowHeight * 0.067;
-// const imgContainerHeight = windowHeight * 0.25;
-// const ContainerWidth = windowWidth * 0.882;
 
 
 export default function Main({navigation}) {
@@ -53,7 +45,7 @@ const styles = StyleSheet.create({
   // Main css
   container:{
     backgroundColor : '#ffffff',
-    width : windowWidth,
+    width : '100%',
   },
 
   // Floating button css
